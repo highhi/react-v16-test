@@ -4,14 +4,13 @@ interface IProps {
   closeDialog: () => void;
 }
 
-//TODO: 戻り値が配列の場合の正しい型情報
-const Dialog = ({ closeDialog }: IProps): JSX.Element[] => {
+const Dialog = ({ closeDialog }: IProps): React.ReactFragment => {
   return [
     <div key="overlay" className="overlay" onClick={() => closeDialog()}></div>,
     <div key="dialog" className="dialog">
       <p>Dialog</p>
-    </div>
+    </div>,
   ];
 };
 
-export default Dialog;
+export default (Dialog as React.SFC<IProps>);
