@@ -1,16 +1,24 @@
 import * as React from 'react';
+import * as ReactDom from 'react-dom';
 
 interface IProps {
-  closeDialog: () => void;
+  isShow: boolean;
+  closeDialog(): void;
 }
 
-const Dialog = ({ closeDialog }: IProps): React.ReactFragment => {
-  return [
+const root = document.getElementById('dialog');
+
+const Dialog: React.SFC<IProps> = ({ isShow, closeDialog }: IProps) => {
+  if (!isShow) return false;
+
+  const component = [
     <div key="overlay" className="overlay" onClick={() => closeDialog()}></div>,
     <div key="dialog" className="dialog">
       <p>Dialog</p>
     </div>,
   ];
+
+  return ReactDom.createPortal(component, root);
 };
 
-export default (Dialog as React.SFC<IProps>);
+export default Dialog;
